@@ -5,6 +5,8 @@ import DetailNotePage from "../../pages/DetaiNotePage";
 import NotFound from "../../pages/NotFound";
 import AddNotePage from "../../pages/AddNotePage";
 import ArchivesNotePage from "../../pages/ArchivesNotePage";
+import LoginPage from "../../pages/LoginPage";
+import RegisterPage from "../../pages/RegisterPage";
 
 const NoteBody = () => {
   return (
@@ -15,6 +17,8 @@ const NoteBody = () => {
         <Route path="/note/:id" element={<DetailNotePage />} />
         <Route path="/addnote" element={<AddNotePage />} />
         <Route path="/archives" element={<ArchivesNotePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
