@@ -2,22 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import NoteTypeData from "../../../utils/NoteTypeData";
+import { BsFillBackspaceFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const DetailButton = ({ notes, archiveNote, unarchiveNote, deleteNote }) => {
-  const navigate = useNavigate();
-
   if (notes.archived === true) {
     return (
       <div className="add-new-page__action">
+        <Link to="/archives">
+          <button className="action" type="button">
+            <BsFillBackspaceFill />
+          </button>
+        </Link>
         <button
           className="action"
           type="button"
           title="UnArchive"
           onClick={() => {
             unarchiveNote(notes.id);
-            navigate("/archives");
           }}
         >
           <BiArchiveOut />
@@ -29,7 +31,6 @@ const DetailButton = ({ notes, archiveNote, unarchiveNote, deleteNote }) => {
           title="Delete"
           onClick={() => {
             deleteNote(notes.id);
-            navigate("/archives");
           }}
         >
           <AiFillDelete />
@@ -39,13 +40,17 @@ const DetailButton = ({ notes, archiveNote, unarchiveNote, deleteNote }) => {
   } else {
     return (
       <div className="add-new-page__action">
+        <Link to="/">
+          <button className="action" type="button">
+            <BsFillBackspaceFill />
+          </button>
+        </Link>
         <button
           className="action"
           type="button"
           title="Archive"
           onClick={() => {
             archiveNote(notes.id);
-            navigate("/");
           }}
         >
           <BiArchiveIn />
@@ -56,7 +61,6 @@ const DetailButton = ({ notes, archiveNote, unarchiveNote, deleteNote }) => {
           title="Delete"
           onClick={() => {
             deleteNote(notes.id);
-            navigate("/");
           }}
         >
           <AiFillDelete />
@@ -67,7 +71,7 @@ const DetailButton = ({ notes, archiveNote, unarchiveNote, deleteNote }) => {
 };
 
 DetailButton.propTypes = {
-  notes: PropTypes.shape(NoteTypeData),
+  notes: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   archiveNote: PropTypes.func.isRequired,
   unarchiveNote: PropTypes.func.isRequired,
   deleteNote: PropTypes.func.isRequired,

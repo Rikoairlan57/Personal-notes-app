@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NoteTypeData from "../../utils/NoteTypeData";
-import { showFormattedDate } from "../../utils";
+
+import { showFormattedDate } from "../../utils/index";
 
 const DetailNote = ({ notes }) => {
   return (
@@ -16,7 +16,7 @@ const DetailNote = ({ notes }) => {
 };
 
 DetailNote.propTypes = {
-  notes: PropTypes.shape(NoteTypeData),
+  notes: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default DetailNote;

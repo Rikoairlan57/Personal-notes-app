@@ -1,15 +1,47 @@
 import React from "react";
-import LoginInput from "../components/items/Input/LoginInput";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import LoginInput from "../components/items/Input/LoginInput";
+import { login } from "../utils/network-data";
+import { LocaleConsumer } from "../components/contexts/LocaleContext";
 
-const LoginPage = () => {
+const LoginPage = ({ loginSuccess }) => {
+  async function onLogin({ email, password }) {
+    const { error, data } = await login({ email, password });
+
+    if (!error) {
+      loginSuccess(data);
+    }
+  }
+
   return (
-    <section className="login-page">
-      <LoginInput />
-      <p>
-        <Link to="/register">register</Link>
-      </p>
-    </section>
+    <LocaleConsumer>
+      {({ locale }) => {
+        return (
+          <section className="login-page">
+            <h2>
+              {locale === "id"
+                ? "login untuk menggunakan aplikasi."
+                : "Login to use app, please."}
+            </h2>
+            <LoginInput login={onLogin} />
+            <p>
+              {locale === "id"
+                ? "Belum punya akun? "
+                : "Don't have an account? "}
+              <Link to="/register">
+                {locale === "id" ? "Daftar di sini." : " Register here"}
+              </Link>
+            </p>
+          </section>
+        );
+      }}
+    </LocaleConsumer>
   );
 };
+
+LoginPage.propTypes = {
+  loginSuccess: PropTypes.func.isRequired,
+};
+
 export default LoginPage;
